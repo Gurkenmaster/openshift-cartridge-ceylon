@@ -11,9 +11,9 @@ shared class TaskDAO(Session session) {
 
     shared Collection<Task> tasks(String q = "") {
         if (q.empty) {
-            return taskMap.values;
+            return taskMap.items;
         } else {
-            return queryTasks(q).collect((String->Task element) => element.item);
+            return queryTasks(q)*.item;
         }
     }
 
