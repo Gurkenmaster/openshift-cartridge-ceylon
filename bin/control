@@ -45,7 +45,7 @@ function start() {
 		
 		source ${OPENSHIFT_REPO_DIR}.openshift/config/ceylon.properties
 
-        run_params="run ${ceylon_repos} ${run_module_id}"
+		run_params="run ${ceylon_repos} ${run_module_id}"
 
 		echo "Executing ${CEYLON_BIN_DIR}/ceylon" | tee -a ${CEYLON_LOG_PATH}
 		echo "With params: ${run_params}" | tee -a ${CEYLON_LOG_PATH}
@@ -127,9 +127,13 @@ function build() {
 	ceylon_repos="${ceylon_repos} --rep http://modules.ceylon-lang.org/test/"
 	ceylon_repos="${ceylon_repos} --rep ${OPENSHIFT_CEYLON_MODULES_REPO_DIR}/repo"
 
+	if [ "$maven_support" = true ] ; then
+			ceylon_repos="${ceylon_repos} --rep aether";
+	fi
+
 	compile_files=`find ${OPENSHIFT_REPO_DIR}/source/ -name *\.ceylon -o -name *\.java`
 	printf "Compiling files:\n$compile_files\n"
-	${CEYLON_BIN_DIR}/ceylon compile --javac=-encoding=utf8 --src ${OPENSHIFT_REPO_DIR}/source --out ${OPENSHIFT_CEYLON_MODULES_REPO_DIR}/repo ${ceylon_repos} ${compile_files}
+	${CEYLON_BIN_DIR}/ceylon compile --javac=-encoding=utf8 --src ${OPENSHIFT_REPO_DIR}/source --out ${OPENSHIFT_CEYLON_MODULES_REPO_DIR}/repo ${ceylon_repos} ${compile_files} | tee -a ${CEYLON_LOG_PATH}
 	
 	echo "Ceylon build done." | tee -a ${CEYLON_LOG_PATH}
 }
