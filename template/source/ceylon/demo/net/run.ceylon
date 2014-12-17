@@ -18,11 +18,6 @@ import ceylon.demo.net.todo {
 import ceylon.demo.net.todo.endpoints {
 	redirect
 }
-import ceylon.net.uri {
-	Uri,
-	Path,
-	PathSegment
-}
 
 by ("Matej Lazar")
 String prop_server_bind_port = "server.bind.port";
