@@ -40,7 +40,7 @@ function start() {
 		ceylon_repos="${ceylon_repos} --rep http://modules.ceylon-lang.org/repo/1/"
 		ceylon_repos="${ceylon_repos} --rep ${OPENSHIFT_CEYLON_MODULES_REPO_DIR}/repo"
 		
-		ceylon_repos="${ceylon_repos} --rep aether"
+		ceylon_repos="${ceylon_repos} --rep aether:${OPENSHIFT_REPO_DIR}settings.xml"
 		
 		source ${OPENSHIFT_REPO_DIR}.openshift/config/ceylon.properties
 
@@ -125,7 +125,7 @@ function build() {
 	ceylon_repos=" --rep ${OPENSHIFT_REPO_DIR}.openshift/config/modules"
 	ceylon_repos="${ceylon_repos} --rep http://modules.ceylon-lang.org/test/"
 	ceylon_repos="${ceylon_repos} --rep ${OPENSHIFT_CEYLON_MODULES_REPO_DIR}/repo"
-	ceylon_repos="${ceylon_repos} --rep aether";
+	ceylon_repos="${ceylon_repos} --rep aether:${OPENSHIFT_REPO_DIR}settings.xml"
 
 	compile_files=`find ${OPENSHIFT_REPO_DIR}/source/ -name *\.ceylon -o -name *\.java`
 	printf "Compiling files:\n$compile_files\n"
